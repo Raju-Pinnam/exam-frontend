@@ -1,9 +1,11 @@
+<app-header [isAuthenticated]="checkLogin()" (clickAllQP)="getQuestionPapers()" (clickSentCheckQP)="getSetterQuestionPapers()" (clickSentExaminerQP)="getExaminerQuestionPapers()"></app-header>
+
 <div class="row">
     <div class="col-6">
-        <app-quesion-papers [questionpapers]="main_question_paper_list"></app-quesion-papers>
+        <app-quesion-papers [questionpapers]="main_question_paper_list" (selectedPaperOutput)="selectQpFunc($event)"></app-quesion-papers>
     </div>
     <div class="col-6">
-        <app-quesion-paper></app-quesion-paper>
+        <app-quesion-paper [qp]="selectedQP"></app-quesion-paper>
         <app-quesion-paper-form></app-quesion-paper-form>
     </div>
 </div>

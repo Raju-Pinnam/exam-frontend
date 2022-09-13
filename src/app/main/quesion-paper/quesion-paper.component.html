@@ -1,1 +1,47 @@
-<p>quesion-paper works!</p>
+<div *ngIf="qp">
+    <!-- "total_marks": number,
+  "cut_off_marks": number,
+  "subject__subject_name": string,
+  "is_checker_approved": boolean,
+  "is_examinar_approved": boolean,
+  "checker_review": string|null,
+  "examiner_review": string|null,
+  "question": [],
+  "answers": [] -->
+    <div class="row">
+        <div class="col-3">Total Marks</div>
+        <div class="col-4">{{qp.total_marks}}</div>
+    </div>
+    <div class="row">
+        <div class="col-3">Cut Off Marks</div>
+        <div class="col-4">{{qp.cut_off_marks}}</div>
+    </div>
+    <div class="row">
+        <div class="col-3">Subject</div>
+        <div class="col-4">{{qp.subject__subject_name}}</div>
+    </div>
+    <div class="row">
+        <div class="col-5">Is Checker Approved</div>
+        <div class="col-4">{{qp.is_checker_approved}}</div>
+    </div>
+    <div class="row">
+        <div class="col-5">Is Examinar Approved</div>
+        <div class="col-4">{{qp.is_examinar_approved}}</div>
+    </div>
+    <div class="row" *ngIf="qp.is_checker_approved">
+        <div class="col-5">Checker Review</div>
+        <div class="col-7">{{qp.checker_review}}</div>
+    </div>
+    <div class="row" *ngIf="qp.is_examinar_approved">
+        <div class="col-5">Examinar Review</div>
+        <div class="col-7">{{qp.examiner_review}}</div>
+    </div>
+    <div class="row">
+        <div class="col-3">Questions</div>
+        <div class="col-9">{{qp.question}}</div>
+    </div>
+    <div class="row">
+        <div class="col-3">Answers</div>
+        <div class="col-9">{{qp.answers}}</div>
+    </div>
+</div>

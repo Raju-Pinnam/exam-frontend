@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuesionPapersComponent } from './quesion-papers/quesion-papers.component';
 import { QuesionPaperComponent } from './quesion-paper/quesion-paper.component';
 import { QuesionPaperFormComponent } from './quesion-paper-form/quesion-paper-form.component';
+import { HeaderComponent } from '../header/header.component';
 
 const routes: Routes = [
   {path: 'main', component: MainComponent}
@@ -17,6 +18,7 @@ const routes: Routes = [
     QuesionPapersComponent,
     QuesionPaperComponent,
     QuesionPaperFormComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

@@ -9,3 +9,20 @@ export interface QuestionPaper{
     "question": [],
     "answers": []
 }
+
+export interface TokenObj{
+    token: string
+}
+
+
+export interface UserObj{
+    "id": number,
+    "user_id": number,
+    "username": string,
+    "first_name": string,
+    "last_name": string,
+    "email": string,
+    "contact": string,
+    "subject": string,
+    "profile_choice": string,
+}

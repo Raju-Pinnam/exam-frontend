@@ -29,3 +29,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Checking Points
 External Command in linux
 sudo sysctl -w fs.inotify.max_user_watches=524288
+****

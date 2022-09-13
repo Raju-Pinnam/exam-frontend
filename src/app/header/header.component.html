@@ -1,0 +1,34 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="navbar-brand">Exam Papers</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="isAuthenticated">
+    <span class="navbar-toggler-icon" *ngIf="isAuthenticated"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="isAuthenticated">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" [ngClass]="{'active': defaultAll==true}" (click)="sentToAllQps()">
+                <div class="nav-link">All Papers <span *ngIf="defaultAll==true">
+                    <span class="sr-only">(current)</span>
+                    </span>
+                </div>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': defaultcheck==true}" (click)="sentToCheckerQps()">
+                <div class="nav-link">Sent to Checker <span *ngIf="defaultcheck==true"> <span class="sr-only" >(current)</span></span>
+                </div>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': defaultExaminer==true}" (click)="sentToExaminerQps()">
+                <div class="nav-link">Send to Examiner <span class="sr-only" *ngIf="defaultExaminer==true">(current)</span> </div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">Validated Papers</div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="button" (click)="logoutFunc()">
+              <span *ngIf="isAuthenticated">
+                <span class="small">{{user_obj.profile_choice}}</span>
+                 Logout
+              </span>
+            </button>
+        </form>
+    </div>
+</nav>
