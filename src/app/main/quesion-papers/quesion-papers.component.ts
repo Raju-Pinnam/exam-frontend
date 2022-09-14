@@ -13,6 +13,7 @@ export class QuesionPapersComponent implements OnInit {
   @Output() selectEditQp = new EventEmitter<QuestionPaper>();
   @Output() selectedeleteQp = new EventEmitter<QuestionPaper>();
   @Output() createQp = new EventEmitter();
+  @Output() createQuestion = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -26,5 +27,8 @@ export class QuesionPapersComponent implements OnInit {
   }
   createQpFunc(){
     this.createQp.emit()
+  }
+  createQuestionFunc(){
+    this.createQuestion.emit()
   }
 }

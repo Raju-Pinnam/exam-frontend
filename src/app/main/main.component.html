@@ -2,10 +2,13 @@
 
 <div class="row">
     <div class="col-6">
-        <app-quesion-papers [questionpapers]="main_question_paper_list" (selectedPaperOutput)="selectQpFunc($event)" (selectEditQp)="editQPMainFunc($event)" (createQp)="createQpFunc()"></app-quesion-papers>
+        <app-quesion-papers [questionpapers]="main_question_paper_list" (selectedPaperOutput)="selectQpFunc($event)" (selectEditQp)="editQPMainFunc($event)" (createQp)="createQpFunc()" (createQuestion)="createQuestionMainFunc()"></app-quesion-papers>
     </div>
     <div class="col-6">
         <app-quesion-paper *ngIf="selectedQP" [qp]="selectedQP"></app-quesion-paper>
         <app-quesion-paper-form *ngIf="editingQp" [qp]="editingQp" (qpNew)="creatingQpFunc($event)" (movieEdit)="editingQPFunc($event)"></app-quesion-paper-form>
+        <app-question-creation *ngIf="createQuestion" (newQuestion)="creatingQuestion($event)">
+
+        </app-question-creation>
     </div>
 </div>

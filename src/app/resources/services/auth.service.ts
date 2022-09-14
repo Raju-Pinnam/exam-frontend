@@ -78,4 +78,11 @@ export class AuthService {
             `${url}`, {headers: this.response_headers}
         )
     }
+    createQuestionService(question: string, answer: string, q_marks: number){
+        let data = JSON.stringify({question, answer, q_marks})
+        let url = `${this.baseUrl}papers/questions/`
+        return this.httpclient.post(
+            `${url}`, data, {headers: this.response_headers}
+        )
+    }
 }

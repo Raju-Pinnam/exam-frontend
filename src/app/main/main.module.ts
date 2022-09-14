@@ -9,6 +9,7 @@ import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { QuestionCreationComponent } from '../question-creation/question-creation.component';
 
 const routes: Routes = [
   {path: 'main', component: MainComponent}
@@ -21,7 +22,8 @@ const routes: Routes = [
     QuesionPapersComponent,
     QuesionPaperComponent,
     QuesionPaperFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    QuestionCreationComponent
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
