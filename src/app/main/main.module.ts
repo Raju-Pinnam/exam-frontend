@@ -6,6 +6,9 @@ import { QuesionPapersComponent } from './quesion-papers/quesion-papers.componen
 import { QuesionPaperComponent } from './quesion-paper/quesion-paper.component';
 import { QuesionPaperFormComponent } from './quesion-paper-form/quesion-paper-form.component';
 import { HeaderComponent } from '../header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const routes: Routes = [
   {path: 'main', component: MainComponent}
@@ -21,7 +24,10 @@ const routes: Routes = [
     HeaderComponent
   ],
   imports: [
+    NgMultiSelectDropDownModule.forRoot(),
     CommonModule,
+    NgSelectModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   exports: [

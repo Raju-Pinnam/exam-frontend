@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const routes: Routes=[
   {path:'', pathMatch:'full', redirectTo:'auth'}
@@ -24,6 +26,8 @@ const routes: Routes=[
     MainModule,
     AuthModule,
     RouterModule.forRoot(routes),
+   NgMultiSelectDropDownModule.forRoot(),
+   NgSelectModule,
     HttpClientModule
   ],
   exports: [

@@ -1,1 +1,17 @@
-<p>quesion-paper-form works!</p>
+<form [formGroup]="qpForm" (ngSubmit)="saveFormFunc()">
+    <div class="form-group">
+        <label class="form-label select-label select">Questions</label>
+        <select id="title" placeholder="Questions" formControlName="title" multiple class="form-control" name="title">
+          <option value="-1" disabled>Select Questions</option>
+          <option *ngFor="let quesrion of allquestions" value="{{quesrion.id}}">{{quesrion.question}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Cut Off Marks</label>
+        <input type="text" name="description" id="description" class="form-control" placeholder="" formControlName="description">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">
+    <span *ngIf="qpId">Edit</span>
+    <span *ngIf="!qpId">Create</span> Test
+  </button>
+</form>

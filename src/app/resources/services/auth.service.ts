@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { QuestionPaper, TokenObj, UserObj } from '../models/auth.models';
+import { QuestionModel, QuestionPaper, TokenObj, UserObj } from '../models/auth.models';
 
 
 @Injectable({
@@ -47,6 +47,35 @@ export class AuthService {
     getUserDetails(){
         return this.httpclient.get<UserObj>(
             `${this.baseUrl}papers/user_details/`, {headers: this.response_headers}
+        )
+    }
+    getSubjectWiseQuestions(data:any=null){
+        let url = `${this.baseUrl}papers/questions/`
+        if (data){
+            if (data['subject']){
+                url = `${url}?subjecct=${data['subject']}`
+            }
+        }
+        return this.httpclient.get<QuestionModel[]>(
+            `${url}`, {headers: this.response_headers}
+        )
+    }
+    createQp(questions:string, cut_off_marks: number){
+        let data = JSON.stringify({questions, cut_off_marks})
+        let url = `${this.baseUrl}papers/create_testpaper/`
+        return this.httpclient.post(
+            `${url}`, data, {headers: this.response_headers}
+        )
+    }
+    editingQp(data:any=null){
+        let url = `${this.baseUrl}papers/questions/`
+        if (data){
+            if (data['subject']){
+                url = `${url}?subjecct=${data['subject']}`
+            }
+        }
+        return this.httpclient.get<QuestionModel[]>(
+            `${url}`, {headers: this.response_headers}
         )
     }
 }

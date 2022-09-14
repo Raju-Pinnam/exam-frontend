@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { QuestionPaper } from '../resources/models/auth.models';
+import { QuestionPaper, TestPaper } from '../resources/models/auth.models';
 import { AuthService } from '../resources/services/auth.service';
 
 
@@ -12,7 +12,8 @@ import { AuthService } from '../resources/services/auth.service';
 })
 export class MainComponent implements OnInit {
   userAuthenticated:boolean = false;
-
+  editingQp!: TestPaper|any;
+  creatingQp!: TestPaper|any;
   main_question_paper_list: QuestionPaper[]|any = []
   selectedQP: QuestionPaper|any = null;
 
@@ -32,7 +33,7 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => console.error(error)
+      error => alert(error)
     )
   }
   getSetterQuestionPapers(){
@@ -40,7 +41,7 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => console.error(error)
+      error => alert(error)
     )
   }
   getExaminerQuestionPapers(){
@@ -48,7 +49,7 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => console.error(error)
+      error => alert(error)
     )
   }
   redirectToPages(){
@@ -59,7 +60,7 @@ export class MainComponent implements OnInit {
   }
   selectQpFunc(qp: QuestionPaper){
     this.selectedQP = qp
-    console.log(this.selectedQP)
+    this.editingQp = null;
   }
   checkLogin(){
     if (this.cookieService.get('user-token')){
@@ -69,5 +70,29 @@ export class MainComponent implements OnInit {
       this.userAuthenticated = false
     }
     return this.userAuthenticated
+  }
+  editQPMainFunc(qp: QuestionPaper){
+    this.selectedQP = null
+    this.editingQp = qp
+  }
+  createQpFunc(){
+    this.selectedQP = null;
+    this.editingQp = {'questions': [], 'cut_off_marks': 0}
+  }
+  creatingQpFunc(qp:any){
+  this.authApiService.createQp(qp.title.toString(), qp.description).subscribe(
+    result => {
+      this.getSetterQuestionPapers()
+    },
+    error => alert(error)
+
+  )
+  }
+  editingQPFunc(qp:any){
+    this.authApiService.editingQp().subscribe(
+      result => {this.getSetterQuestionPapers()},
+      error=>alert(error)
+
+    )
   }
 }

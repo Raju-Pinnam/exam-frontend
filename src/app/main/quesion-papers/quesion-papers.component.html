@@ -3,7 +3,7 @@
         <h5>{{questionpaper.subject__subject_name|titlecase}}_{{questionpaper.total_marks}}</h5>
     </div>
     <div class="col-2 mx-1">
-        <button type="button" class="btn btn-sm bg-info">
+        <button type="button" class="btn btn-sm bg-info" (click)="editQpFunc(questionpaper)">
     <i class="fa fa-pen-to-square "></i>
   </button>
     </div>
@@ -11,5 +11,10 @@
         <button type="button" class="btn btn-sm bg-danger">
     <i class="fa fa-trash "></i>
   </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col center">
+        <button type="button" class="btn btn-success" (click)="createQpFunc()"> New Test Paper </button>
     </div>
 </div>

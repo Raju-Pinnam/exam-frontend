@@ -38,10 +38,11 @@
     </div>
     <div class="row">
         <div class="col-3">Questions</div>
-        <div class="col-9">{{qp.question}}</div>
-    </div>
-    <div class="row">
-        <div class="col-3">Answers</div>
-        <div class="col-9">{{qp.answers}}</div>
+        <div class="col-9">
+            <div *ngFor="let question of qp.question;let i=index">
+                <div class="row">{{question}}</div>
+                <div class="row">A. {{qp.answers[i]}}</div>
+            </div>
+        </div>
     </div>
 </div>
