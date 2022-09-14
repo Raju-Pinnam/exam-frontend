@@ -34,7 +34,8 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => alert(error.message)
+      error => window.location.reload()
+
     )
   }
   getSetterQuestionPapers(){
