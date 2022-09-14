@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QuestionPaper } from 'src/app/resources/models/auth.models';
 
 @Component({
@@ -9,9 +9,13 @@ import { QuestionPaper } from 'src/app/resources/models/auth.models';
 export class QuesionPaperComponent implements OnInit {
 
   @Input() qp: QuestionPaper|any = null
+  @Output() sendForSetterApproval = new EventEmitter()
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  sentForSetterApprovalFunc(){
+    this.sendForSetterApproval.emit()
+  }
 }

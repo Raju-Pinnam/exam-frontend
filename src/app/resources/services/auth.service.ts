@@ -44,6 +44,12 @@ export class AuthService {
             `${this.baseUrl}auth-token/`, body, {headers: this.headers}
         )
     }
+    registerUser(registerData:any){
+        const body=JSON.stringify(registerData);
+        return this.httpclient.post(
+            `${this.baseUrl}papers/register/`, body, {headers: this.headers}
+        )
+    }
     getUserDetails(){
         return this.httpclient.get<UserObj>(
             `${this.baseUrl}papers/user_details/`, {headers: this.response_headers}
@@ -83,6 +89,11 @@ export class AuthService {
         let url = `${this.baseUrl}papers/questions/`
         return this.httpclient.post(
             `${url}`, data, {headers: this.response_headers}
+        )
+    }
+    subjectsList(){
+        return this.httpclient.get(
+            `${this.baseUrl}papers/subjects/`, {headers: this.headers}
         )
     }
 }

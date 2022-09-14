@@ -22,11 +22,22 @@
     </div>
     <div class="row">
         <div class="col-5">Is Checker Approved</div>
-        <div class="col-4">{{qp.is_checker_approved}}</div>
+        <div *ngIf="!qp.is_checker_approved">
+            <button>
+            Send For Approval
+          </button>
+        </div>
+        <div class="col-4" *ngIf="qp.is_checker_approved" class="btn-success">
+            Approved
+        </div>
     </div>
     <div class="row">
         <div class="col-5">Is Examinar Approved</div>
-        <div class="col-4">{{qp.is_examinar_approved}}</div>
+        <div class="col-4">
+            <div>
+                {{qp.is_examinar_approved}}
+            </div>
+        </div>
     </div>
     <div class="row" *ngIf="qp.is_checker_approved">
         <div class="col-5">Checker Review</div>

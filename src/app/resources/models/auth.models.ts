@@ -12,6 +12,11 @@ export interface QuestionPaper{
     "answers": []
 }
 
+export interface SubjectModel{
+    "id": number,
+    "subject_name": string,
+}
+
 export interface TestPaper{
     "questions": [],
     "cut_off_marks": number,

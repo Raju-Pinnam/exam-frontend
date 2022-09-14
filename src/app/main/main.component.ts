@@ -112,9 +112,10 @@ export class MainComponent implements OnInit {
     this.authApiService.createQuestionService(question_data.question_title, question_data.answer,
       question_data.marks).subscribe(
         result => {
-
+          this.getQuestionPapers()
         },
         error => alert(error.message)
       )
   }
+
 }
