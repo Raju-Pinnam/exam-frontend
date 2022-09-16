@@ -1,13 +1,4 @@
 <div *ngIf="qp">
-    <!-- "total_marks": number,
-  "cut_off_marks": number,
-  "subject__subject_name": string,
-  "is_checker_approved": boolean,
-  "is_examinar_approved": boolean,
-  "checker_review": string|null,
-  "examiner_review": string|null,
-  "question": [],
-  "answers": [] -->
     <div class="row">
         <div class="col-3">Total Marks</div>
         <div class="col-4">{{qp.total_marks}}</div>
@@ -20,33 +11,39 @@
         <div class="col-3">Subject</div>
         <div class="col-4">{{qp.subject__subject_name}}</div>
     </div>
-    <div class="row">
-        <div class="col-5">Is Checker Approved</div>
-        <div *ngIf="!qp.is_checker_approved">
-            <button>
+    <div *ngIf="userType=='Setter'">
+        <div class="row">
+            <div class="col-5">Is Checker Approved</div>
+            <div *ngIf="qp.is_checker_approved==false && qp.is_sent_for_cheeck==false">
+                <button class="btn btn-sm btn-success" (click)="sentForSetterApprovalFunc()">
             Send For Approval
           </button>
-        </div>
-        <div class="col-4" *ngIf="qp.is_checker_approved" class="btn-success">
-            Approved
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5">Is Examinar Approved</div>
-        <div class="col-4">
-            <div>
-                {{qp.is_examinar_approved}}
+            </div>
+            <div class="col-4" *ngIf="qp.is_checker_approved">
+                Approved
+            </div>
+            <div class="col-4" *ngIf="qp.is_sent_for_cheeck==true && qp.is_checker_approved==false">
+                Verifying
             </div>
         </div>
+        <div class="row">
+            <div class="col-5">Is Examinar Approved</div>
+            <div class="col-4">
+                <div>
+                    {{qp.is_examinar_approved}}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="qp.is_checker_approved">
+            <div class="col-5">Checker Review</div>
+            <div class="col-7">{{qp.checker_review}}</div>
+        </div>
+        <div class="row" *ngIf="qp.is_examinar_approved">
+            <div class="col-5">Examinar Review</div>
+            <div class="col-7">{{qp.examiner_review}}</div>
+        </div>
     </div>
-    <div class="row" *ngIf="qp.is_checker_approved">
-        <div class="col-5">Checker Review</div>
-        <div class="col-7">{{qp.checker_review}}</div>
-    </div>
-    <div class="row" *ngIf="qp.is_examinar_approved">
-        <div class="col-5">Examinar Review</div>
-        <div class="col-7">{{qp.examiner_review}}</div>
-    </div>
+
     <div class="row">
         <div class="col-3">Questions</div>
         <div class="col-9">
@@ -55,5 +52,18 @@
                 <div class="row">A. {{qp.answers[i]}}</div>
             </div>
         </div>
+    </div>
+    <div>
+        <form [formGroup]="approvalForm" (ngSubmit)="qpPaperApprovalFunc()">
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" class="form-control" placeholder="" formControlName="message"> </textarea>
+            </div>
+            <!-- <button type="submit" class="btn btn-success" ng-click="approval=true">
+              Approve
+            </button> -->
+            <button type="submit" class="btn btn-success mx-2" (click)="approvedFunc()">Approve</button>
+            <button type="submit" class="btn btn-danger" (click)="rejectFunc()">Reject</button>
+        </form>
     </div>
 </div>

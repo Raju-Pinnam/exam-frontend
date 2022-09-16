@@ -3,7 +3,9 @@
         <label class="form-label select-label select">Questions</label>
         <select id="title" placeholder="Questions" formControlName="title" multiple class="form-control" name="title">
           <option value="-1" disabled>Select Questions</option>
-          <option *ngFor="let quesrion of allquestions" value="{{quesrion.id}}">{{quesrion.question}}</option>
+          <option *ngFor="let quesrion of allquestions" value="{{quesrion.id}}">
+            {{quesrion.question}} - <span class="text-right">Marks ({{quesrion.question_marks}})</span>
+          </option>
       </select>
     </div>
     <div class="form-group">

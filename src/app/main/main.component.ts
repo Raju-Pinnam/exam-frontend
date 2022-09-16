@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { QuestionPaper, TestPaper } from '../resources/models/auth.models';
+import { timer } from 'rxjs';
+import { QuestionPaper, TestPaper, UserObj } from '../resources/models/auth.models';
 import { AuthService } from '../resources/services/auth.service';
-
+// import { setTimeout } from "timers/promises";
 
 @Component({
   selector: 'app-main',
@@ -12,6 +13,7 @@ import { AuthService } from '../resources/services/auth.service';
 })
 export class MainComponent implements OnInit {
   userAuthenticated:boolean = false;
+  userTypeInMain:string|any=""
   editingQp!: TestPaper|any;
   creatingQp!: TestPaper|any;
   createQuestion!: any;
@@ -23,19 +25,58 @@ export class MainComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router
   ) { }
+  user_obj: any = null
 
-  ngOnInit(): void {
-    this.getQuestionPapers()
+  async ngOnInit() {
+    await timer(3000).toPromise()
+    this.userTypeInMain = this.cookieService.get('user-type')
+    if (this.userTypeInMain=="" || this.userTypeInMain==null){
+      this.userTypeInMain = localStorage.getItem("user-type")
+    }
+
+    if (this.userTypeInMain=="Checker" || this.userTypeInMain == "Examinar"){
+      this.getSentToVerificationPapers()
+    }
+    else{
+      this.getQuestionPapers();
+    }
+
     this.redirectToPages()
   }
+  async getUserType(userType:string){
+    this.userTypeInMain = userType
+  }
+
+  async getSentToVerificationPapers(){
+    await this.authApiService.getSentToVeerificationPapersService(
+      this.userTypeInMain
+    ).subscribe(
+      (data: QuestionPaper[]|any)=>{
+        this.main_question_paper_list = data;
+      },
+      error=>console.error(error.error.detail)
+    )
+  }
+  async getVerificationAcceptedPapers(){
+    this.authApiService.getVerificationAcceptedPapersService(this.userTypeInMain).subscribe(
+      (data: QuestionPaper[]|any)=>{
+        this.main_question_paper_list = data;
+      },
+      error=>console.error(error.error.detail)
+    )
+  }
+
+  async getVerifiedByPapers(){
+
+  }
+
 
   getQuestionPapers(){
     this.authApiService.getQuestionPapers().subscribe(
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => window.location.reload()
-
+      error => console.error(error.error.detail)
     )
   }
   getSetterQuestionPapers(){
@@ -43,7 +84,7 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => alert(error.message)
+      error => console.error(error.error.detail)
     )
   }
   getExaminerQuestionPapers(){
@@ -51,9 +92,12 @@ export class MainComponent implements OnInit {
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
       },
-      error => alert(error.message)
+      error => console.error(error.error.detail)
     )
   }
+
+
+
   redirectToPages(){
     if (!this.cookieService.get('user-token')){
         // this.cookieService.delete('user-token')
@@ -64,7 +108,6 @@ export class MainComponent implements OnInit {
     this.selectedQP = qp
     this.editingQp = null;
     this.createQuestion = null;
-
   }
   checkLogin(){
     if (this.cookieService.get('user-token')){
@@ -97,14 +140,14 @@ export class MainComponent implements OnInit {
     result => {
       this.getSetterQuestionPapers()
     },
-    error => alert(error.message)
+    error => console.error(error.error.detail)
 
   )
   }
   editingQPFunc(qp:any){
     this.authApiService.editingQp().subscribe(
-      result => {this.getSetterQuestionPapers()},
-      error=>alert(error.message)
+      result => {this.getQuestionPapers()},
+      error=>console.error(error.error.detail)
 
     )
   }
@@ -115,8 +158,36 @@ export class MainComponent implements OnInit {
         result => {
           this.getQuestionPapers()
         },
-        error => alert(error.message)
+        error => console.error(error.error.detail)
       )
   }
+  sendingQPforCheckerApprovalFunc(qp:QuestionPaper){
+    this.authApiService.sendToCheckerApprovalService(qp.id).subscribe(
+      result=>{
+        this.getSetterQuestionPapers();
+        this.getQuestionPapers();
+        this.selectedQP = null
+      },
+      error => console.error(error.error.detail)
+    )
+  }
 
+  acceptingQPForVerifyMainFunc(qp_id:number){
+    this.authApiService.acceptingQPForVerifyFuncService(qp_id).subscribe(
+      result=>{
+        this.getSentToVerificationPapers()
+      },
+      error => console.log(error.error.detail)
+    )
+  }
+  verifyingQpMainFun(data:any){
+    this.authApiService.verifyingQpFuncService(data).subscribe(
+      result => {
+        this.getSetterQuestionPapers();
+        this.getExaminerQuestionPapers();
+        this.getVerificationAcceptedPapers();
+        this.selectedQP = null
+      }
+    )
+  }
 }

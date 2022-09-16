@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { QuestionModel, QuestionPaper, UserObj } from 'src/app/resources/models/auth.models';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { AuthService } from 'src/app/resources/services/auth.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-quesion-paper-form',
@@ -32,44 +33,23 @@ export class QuesionPaperFormComponent implements OnInit {
 
   categories = Array();
 
-  selected = [
-    {id: 5, name: 'Angular'},
-    {id: 6, name: 'Vue'}
-  ];
-
-  getSelectedValue(){
-    console.log(this.selected);
-  }
-  ngOnInit(): void {
+  async ngOnInit(){
+    await timer(3000).toPromise()
     this.authApiService.getUserDetails().subscribe(
       (result: UserObj)=>{
-
           this.user_obj = result
-
-
       },
       error => console.log(error)
     )
     setTimeout(() => {
-    this.subject_id=this.user_obj.subject_id},
-    500)
+    this.subject_id=this.user_obj.subject_id;
     this.authApiService.getSubjectWiseQuestions({'subject': this.subject_id}).subscribe(
       (result:QuestionModel[]) => {
         this.allquestions = result
       }
     )
-    // setTimeout(() => {
-    //   for (let i=0; i< this.allquestions.length; i++){
-    //     var dict = {key: this.allquestions[i].id, value: this.allquestions[i].question}
-    //     this.categories.push({key: this.allquestions[i].id, value: this.allquestions[i].question})
-    //   }
-    //   console.log(this.categories)
-
-    // },
-    // 400)
-
-
-    // for (let i=0; i<length())
+  },
+    500)
     if (this.qpId){
       console.log(this.qp)
     }
@@ -83,11 +63,5 @@ export class QuesionPaperFormComponent implements OnInit {
     else{
       this.qpNew.emit(this.qpForm.value)
     }
-  }
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
   }
 }

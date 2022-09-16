@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { timer } from 'rxjs';
 import { QuestionPaper } from 'src/app/resources/models/auth.models';
 
 @Component({
@@ -9,14 +10,17 @@ import { QuestionPaper } from 'src/app/resources/models/auth.models';
 export class QuesionPapersComponent implements OnInit {
 
   @Input() questionpapers!: QuestionPaper[];
+  @Input() UserProfileChoice: string = "Setter"
   @Output() selectedPaperOutput = new EventEmitter<QuestionPaper>()
   @Output() selectEditQp = new EventEmitter<QuestionPaper>();
   @Output() selectedeleteQp = new EventEmitter<QuestionPaper>();
   @Output() createQp = new EventEmitter();
   @Output() createQuestion = new EventEmitter();
+  @Output() qpAcceptedByCheckOrExam = new EventEmitter()
   constructor() { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await timer(3000).toPromise()
   }
 
   selectedQpFunc(questionpaer: QuestionPaper){
@@ -30,5 +34,8 @@ export class QuesionPapersComponent implements OnInit {
   }
   createQuestionFunc(){
     this.createQuestion.emit()
+  }
+  qpAcceptedByCheckOrExamFunc(qp_id:number){
+    this.qpAcceptedByCheckOrExam.emit(qp_id)
   }
 }

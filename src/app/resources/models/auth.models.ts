@@ -9,7 +9,13 @@ export interface QuestionPaper{
     "examiner_review": string|null,
     "question": [],
     "question_ids": [],
-    "answers": []
+    "answers": [],
+    "is_examiner_pending": boolean,
+    "is_checker_pending": boolean,
+    "is_sent_for_cheeck": boolean,
+    "setter__username": string|any,
+    "checker__username": string|any,
+    "examiner__username": string|any
 }
 
 export interface SubjectModel{

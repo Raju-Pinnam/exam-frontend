@@ -2,23 +2,36 @@
     <div class="col-6" (click)="selectedQpFunc(questionpaper)">
         <h5>{{questionpaper.subject__subject_name|titlecase}}_{{questionpaper.total_marks}}</h5>
     </div>
-    <div class="col-2 mx-1">
+    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'">
         <button type="button" class="btn btn-sm bg-info" (click)="editQpFunc(questionpaper)">
     <i class="fa fa-pen-to-square "></i>
   </button>
     </div>
-    <div class="col-2 mx-1">
+    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'">
         <button type="button" class="btn btn-sm bg-danger">
-    <i class="fa fa-trash "></i>
-  </button>
+          <i class="fa fa-trash "></i>
+        </button>
     </div>
+    <div class="col-2 mx-1" *ngIf="UserProfileChoice!='Setter'">
+        <div *ngIf="questionpaper.checker__username == null">
+            <button type="button" class="btn btn-sm bg-success" (click)="qpAcceptedByCheckOrExamFunc(questionpaper.id)">
+            <i class="fa-regular fa-circle-check"></i>
+          </button>
+        </div>
+        <div *ngIf="UserProfileChoice=='Examinar' && questionpaper.examiner__username == null">
+            <button type="button" class="btn btn-sm bg-success" (click)="qpAcceptedByCheckOrExamFunc(questionpaper.id)">
+            <i class="fa-regular fa-circle-check"></i>
+          </button>
+        </div>
+    </div>
+
 </div>
-<div class="row">
+<div class="row" *ngIf="UserProfileChoice=='Setter'">
     <div class="col center">
         <button type="button" class="btn btn-success" (click)="createQpFunc()"> New Test Paper </button>
     </div>
 </div>
-<div class="row my-5">
+<div class="row my-5" *ngIf="UserProfileChoice=='Setter'">
     <div class="col center">
         <button type="button" class="btn btn-info " (click)="createQuestionFunc()"> New Question </button>
     </div>

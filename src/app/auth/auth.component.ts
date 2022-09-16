@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService } from '../resources/services/auth.service';
 import { SubjectModel, TokenObj, UserObj } from '../resources/models/auth.models';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -41,12 +42,12 @@ export class AuthComponent implements OnInit {
     }
   }
   async loginFormFunc(){
-    this.apiService.loginUser(this.authForm.value).subscribe(
+    await this.apiService.loginUser(this.authForm.value).subscribe(
       (result: TokenObj) => {
+        timer(1000)
         this.cookieService.set('user-token', `Token ${result.token}`),
-        setTimeout(() => {
-          this.router.navigate(['/main']);
-        }, 3000)
+        localStorage.setItem("user-token", `Token ${result.token}`)
+        this.router.navigate(['/main']);
 
       },
       error => console.log(error),
@@ -58,7 +59,7 @@ export class AuthComponent implements OnInit {
         alert("User Is registerd, Please Login");
         this.is_login = true
       },
-      error => alert(error.message)
+      error => alert(error.error.detail)
     )
   }
   redirectToPages(){
@@ -73,7 +74,7 @@ export class AuthComponent implements OnInit {
         (result:SubjectModel[]|any) => {
           this.subjects = result
         },
-        error => alert(error.message)
+        error => alert(error.error.detail)
       )
     }
   }
