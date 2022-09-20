@@ -169,4 +169,9 @@ export class AuthService {
             {headers:this.getResponseHeaders()}
         )
     }
+    subjectCreationService(data:any){
+        return this.httpclient.post(
+            `${this.baseUrl}papers/subjects/`, JSON.stringify(data), {headers: this.getResponseHeaders()}
+        )
+    }
 }

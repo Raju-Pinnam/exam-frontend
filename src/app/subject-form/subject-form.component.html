@@ -1,1 +1,10 @@
-<p>subject-form works!</p>
+<form [formGroup]="subjectForm" (ngSubmit)="subjectEmitFunc()">
+    <div class="form-group">
+        <label for="subject_name">Subject Name</label>
+        <input type="text" name="subject_name" id="subject_name" class="form-control" placeholder="" aria-describedby="helpId" formControlName="subject_name">
+        <small id="helpId" class="text-muted">subject_name</small>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">
+  Create Subject
+</button>
+</form>

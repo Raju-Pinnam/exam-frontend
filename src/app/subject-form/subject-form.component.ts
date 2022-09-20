@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-subject-form',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubjectFormComponent implements OnInit {
 
+  @Output() subjectEmit = new EventEmitter()
+  subjectForm = new FormGroup(
+    {
+      subject_name: new FormControl('')
+    }
+  )
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  subjectEmitFunc(){
+    this.subjectEmit.emit(this.subjectForm.value)
   }
 
 }

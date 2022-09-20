@@ -223,4 +223,17 @@ export class MainComponent implements OnInit {
       error=>console.error(error.error.detail)
     )
   }
+  subjectMainFunc(){
+    this.selectedQP = null;
+    this.editingQp = null;
+    this.is_subject_creating = true
+  }
+  subjectCreateFunc(subjectData:any){
+    console.log(JSON.stringify(subjectData))
+    this.authApiService.subjectCreationService(subjectData).subscribe(
+      result=>{
+        this.is_subject_creating = false
+      }
+    )
+  }
 }
