@@ -19,6 +19,7 @@ export class MainComponent implements OnInit {
   createQuestion!: any;
   main_question_paper_list: QuestionPaper[]|any = []
   selectedQP: QuestionPaper|any = null;
+  is_subject_creating: boolean = false
 
   constructor(
     private authApiService: AuthService,
@@ -53,6 +54,8 @@ export class MainComponent implements OnInit {
     ).subscribe(
       (data: QuestionPaper[]|any)=>{
         this.main_question_paper_list = data;
+        this.selectedQP = null;
+        this.editingQp = null
       },
       error=>console.error(error.error.detail)
     )
@@ -61,6 +64,8 @@ export class MainComponent implements OnInit {
     this.authApiService.getVerificationAcceptedPapersService(this.userTypeInMain).subscribe(
       (data: QuestionPaper[]|any)=>{
         this.main_question_paper_list = data;
+        this.selectedQP = null;
+        this.editingQp = null
       },
       error=>console.error(error.error.detail)
     )
@@ -75,6 +80,8 @@ export class MainComponent implements OnInit {
     this.authApiService.getQuestionPapers().subscribe(
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
+        this.selectedQP = null;
+        this.editingQp = null
       },
       error => console.error(error.error.detail)
     )
@@ -83,6 +90,8 @@ export class MainComponent implements OnInit {
     this.authApiService.getQuestionPapers({'is_sent_checker': true}).subscribe(
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
+        this.selectedQP = null;
+        this.editingQp = null
       },
       error => console.error(error.error.detail)
     )
@@ -91,6 +100,8 @@ export class MainComponent implements OnInit {
     this.authApiService.getQuestionPapers({'is_sent_examiner': true}).subscribe(
       (data: QuestionPaper[]|any) => {
         this.main_question_paper_list = data['result'];
+        this.selectedQP = null;
+        this.editingQp = null
       },
       error => console.error(error.error.detail)
     )
@@ -135,10 +146,20 @@ export class MainComponent implements OnInit {
     this.createQuestion = {'question_title': "", "answer": "", "marks": 0}
 
   }
+  deleteQpMainFunc(deletingQpId:number){
+    this.authApiService.deleteTestPaper(deletingQpId).subscribe(
+      result=>{
+        this.getQuestionPapers();
+        this.selectedQP = null;
+        this.editingQp = null
+      }
+    )
+  }
   creatingQpFunc(qp:any){
   this.authApiService.createQp(qp.title.toString(), qp.description).subscribe(
     result => {
-      this.getSetterQuestionPapers()
+      this.getSetterQuestionPapers();
+      this.editingQp = null
     },
     error => console.error(error.error.detail)
 
@@ -188,6 +209,18 @@ export class MainComponent implements OnInit {
         this.getVerificationAcceptedPapers();
         this.selectedQP = null
       }
+    )
+  }
+  async getVerifiedPapers(){
+    await this.authApiService.getValidatedPapersService(
+      this.userTypeInMain
+    ).subscribe(
+      (data: QuestionPaper[]|any)=>{
+        this.main_question_paper_list = data;
+        this.selectedQP = null;
+        this.editingQp = null
+      },
+      error=>console.error(error.error.detail)
     )
   }
 }

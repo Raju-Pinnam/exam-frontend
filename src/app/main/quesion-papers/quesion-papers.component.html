@@ -8,17 +8,12 @@
   </button>
     </div>
     <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'">
-        <button type="button" class="btn btn-sm bg-danger">
+        <button type="button" class="btn btn-sm bg-danger" (click)="deleteQpFunc(questionpaper.id)">
           <i class="fa fa-trash "></i>
         </button>
     </div>
     <div class="col-2 mx-1" *ngIf="UserProfileChoice!='Setter'">
         <div *ngIf="questionpaper.checker__username == null">
-            <button type="button" class="btn btn-sm bg-success" (click)="qpAcceptedByCheckOrExamFunc(questionpaper.id)">
-            <i class="fa-regular fa-circle-check"></i>
-          </button>
-        </div>
-        <div *ngIf="UserProfileChoice=='Examinar' && questionpaper.examiner__username == null">
             <button type="button" class="btn btn-sm bg-success" (click)="qpAcceptedByCheckOrExamFunc(questionpaper.id)">
             <i class="fa-regular fa-circle-check"></i>
           </button>
@@ -34,5 +29,10 @@
 <div class="row my-5" *ngIf="UserProfileChoice=='Setter'">
     <div class="col center">
         <button type="button" class="btn btn-info " (click)="createQuestionFunc()"> New Question </button>
+    </div>
+</div>
+<div class="row my-5" *ngIf="UserProfileChoice=='Examinar'">
+    <div class="col center">
+        <button type="button" class="btn btn-info " (click)="createSubjectFunc()"> New Subject </button>
     </div>
 </div>

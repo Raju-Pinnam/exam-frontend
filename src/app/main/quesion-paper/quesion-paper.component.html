@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div *ngIf="qp.is_examinar_approved==false||qp.is_checker_approved==false">
         <form [formGroup]="approvalForm" (ngSubmit)="qpPaperApprovalFunc()">
             <div class="form-group">
                 <label for="message">Message</label>

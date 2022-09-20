@@ -13,9 +13,10 @@ export class QuesionPapersComponent implements OnInit {
   @Input() UserProfileChoice: string = "Setter"
   @Output() selectedPaperOutput = new EventEmitter<QuestionPaper>()
   @Output() selectEditQp = new EventEmitter<QuestionPaper>();
-  @Output() selectedeleteQp = new EventEmitter<QuestionPaper>();
+  @Output() selectedeleteQp = new EventEmitter<number>();
   @Output() createQp = new EventEmitter();
   @Output() createQuestion = new EventEmitter();
+  @Output() createSubject = new EventEmitter();
   @Output() qpAcceptedByCheckOrExam = new EventEmitter()
   constructor() { }
 
@@ -29,11 +30,17 @@ export class QuesionPapersComponent implements OnInit {
   editQpFunc(qp: QuestionPaper){
     this.selectEditQp.emit(qp)
   }
+  deleteQpFunc(qpId: number){
+    this.selectedeleteQp.emit(qpId)
+  }
   createQpFunc(){
     this.createQp.emit()
   }
   createQuestionFunc(){
     this.createQuestion.emit()
+  }
+  createSubjectFunc(){
+    this.createSubject.emit()
   }
   qpAcceptedByCheckOrExamFunc(qp_id:number){
     this.qpAcceptedByCheckOrExam.emit(qp_id)

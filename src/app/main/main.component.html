@@ -1,10 +1,10 @@
 <app-header [isAuthenticated]="checkLogin()" (userTypeOutput)="getUserType($event)" (clickAllQP)="getQuestionPapers()" (clickSentCheckQP)="getSetterQuestionPapers()" (clickSentExaminerQP)="getExaminerQuestionPapers()" (clickToverifyQp)="getSentToVerificationPapers()"
-    (clickToPapersAccToverifyQp)="getVerificationAcceptedPapers()" (clickToPapersVerified)="getVerifiedByPapers()"></app-header>
+    (clickToPapersAccToverifyQp)="getVerificationAcceptedPapers()" (clickToPapersVerified)="getVerifiedPapers()"></app-header>
 
 <div class="row">
     <div class="col-6">
         <app-quesion-papers [UserProfileChoice]="userTypeInMain" [questionpapers]="main_question_paper_list" (selectedPaperOutput)="selectQpFunc($event)" (selectEditQp)="editQPMainFunc($event)" (createQp)="createQpFunc()" (createQuestion)="createQuestionMainFunc()"
-            (qpAcceptedByCheckOrExam)="acceptingQPForVerifyMainFunc($event)"></app-quesion-papers>
+            (selectedeleteQp)="deleteQpMainFunc($event)" (qpAcceptedByCheckOrExam)="acceptingQPForVerifyMainFunc($event)"></app-quesion-papers>
     </div>
     <div class="col-6">
         <app-quesion-paper *ngIf="selectedQP" [qp]="selectedQP" (sendForSetterApproval)="sendingQPforCheckerApprovalFunc($event)" (ApprovalTypeRequest)="verifyingQpMainFun($event)"></app-quesion-paper>

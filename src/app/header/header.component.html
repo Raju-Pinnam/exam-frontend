@@ -18,8 +18,11 @@
             <li class="nav-item" [ngClass]="{'active': defaultExaminer==true}" (click)="sentToExaminerQps()">
                 <div class="nav-link">Send to Examiner <span class="sr-only" *ngIf="defaultExaminer==true">(current)</span> </div>
             </li>
-            <li class="nav-item">
-                <div class="nav-link">Validated Papers</div>
+            <li class="nav-item" [ngClass]="{'active': defaultPapersVerified==true}" (click)="sendToPapersVerified()">
+                <div class="nav-link">Papers Verified<span *ngIf="defaultPapersVerified==true">
+                  <span class="sr-only">(current)</span>
+                    </span>
+                </div>
             </li>
         </ul>
         <ul class="navbar-nav mr-auto" *ngIf="userType=='Checker'||userType=='Examinar'">
@@ -29,7 +32,7 @@
                     </span>
                 </div>
             </li>
-            <li class="nav-item" [ngClass]="{'active': defaultPapersAcceptedToverify==true}" (click)="sendToPapersToAccpetedToVerify()">
+            <li class="nav-item" [ngClass]="{'active': defaultPapersAcceptedToverify==true}" (click)="sendToPapersToAccpetedToVerify()" *ngIf="userType=='Checker'">
                 <div class="nav-link">Papers Accepted<span *ngIf="defaultPapersAcceptedToverify==true">
           <span class="sr-only">(current)</span>
                     </span>
@@ -42,24 +45,6 @@
                 </div>
             </li>
         </ul>
-        <!-- <ul class="navbar-nav mr-auto" *ngIf="userType=='Examinar'">
-            <li class="nav-item" [ngClass]="{'active': defaultAll==true}" (click)="sentToAllQps()">
-                <div class="nav-link">All Papers <span *ngIf="defaultAll==true">
-                <span class="sr-only">(current)</span>
-                    </span>
-                </div>
-            </li>
-            <li class="nav-item" [ngClass]="{'active': defaultcheck==true}" (click)="sentToCheckerQps()">
-                <div class="nav-link">Sent to Checker <span *ngIf="defaultcheck==true"> <span class="sr-only" >(current)</span></span>
-                </div>
-            </li>
-            <li class="nav-item" [ngClass]="{'active': defaultExaminer==true}" (click)="sentToExaminerQps()">
-                <div class="nav-link">Send to Examiner <span class="sr-only" *ngIf="defaultExaminer==true">(current)</span> </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link">Validated Papers</div>
-            </li>
-        </ul> -->
         <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-outline-danger my-2 my-sm-0" type="button" (click)="logoutFunc()">
               <span *ngIf="isAuthenticated">

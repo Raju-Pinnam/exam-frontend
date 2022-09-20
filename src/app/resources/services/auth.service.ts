@@ -136,6 +136,13 @@ export class AuthService {
         )
     }
 
+    getValidatedPapersService(profile_ch:string){
+        let url = `${this.baseUrl}papers/test_paper/accepted/list/?profile_ch=${profile_ch}&is_verified=true`
+        return this.httpclient.get<QuestionPaper[]>(
+            url, {headers: this.getResponseHeaders()}
+        )
+    }
+
     getVerificationAcceptedPapersService(profile_ch:string){
         let url = `${this.baseUrl}papers/test_paper/accepted/list/?profile_ch=${profile_ch}`
         return this.httpclient.get<QuestionPaper[]>(
@@ -154,6 +161,12 @@ export class AuthService {
         let url = `${this.baseUrl}papers/checker_test_approval/`
         return this.httpclient.post(
             url, data, {headers:this.getResponseHeaders()}
+        )
+    }
+    deleteTestPaper(qpId:number){
+        return this.httpclient.delete(
+            `${this.baseUrl}papers/create_testpaper/?pk=${qpId}`, 
+            {headers:this.getResponseHeaders()}
         )
     }
 }
