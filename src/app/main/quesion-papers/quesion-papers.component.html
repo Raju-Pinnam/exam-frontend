@@ -2,12 +2,12 @@
     <div class="col-6" (click)="selectedQpFunc(questionpaper)">
         <h5>{{questionpaper.subject__subject_name|titlecase}}_{{questionpaper.total_marks}}</h5>
     </div>
-    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'">
+    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter' && (questionpaper.is_sent_for_cheeck==false)">
         <button type="button" class="btn btn-sm bg-info" (click)="editQpFunc(questionpaper)">
-    <i class="fa fa-pen-to-square "></i>
-  </button>
+          <i class="fa fa-pen-to-square "></i>
+        </button>
     </div>
-    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'">
+    <div class="col-2 mx-1" *ngIf="UserProfileChoice=='Setter'  && (questionpaper.is_sent_for_cheeck==false)">
         <button type="button" class="btn btn-sm bg-danger" (click)="deleteQpFunc(questionpaper.id)">
           <i class="fa fa-trash "></i>
         </button>

@@ -158,7 +158,7 @@ export class MainComponent implements OnInit {
   creatingQpFunc(qp:any){
   this.authApiService.createQp(qp.title.toString(), qp.description).subscribe(
     result => {
-      this.getSetterQuestionPapers();
+      this.getQuestionPapers();
       this.editingQp = null
     },
     error => console.error(error.error.detail)
@@ -177,7 +177,8 @@ export class MainComponent implements OnInit {
     this.authApiService.createQuestionService(question_data.question_title, question_data.answer,
       question_data.marks).subscribe(
         result => {
-          this.getQuestionPapers()
+          this.getQuestionPapers();
+          this.createQuestion = null
         },
         error => console.error(error.error.detail)
       )
